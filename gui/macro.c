@@ -87,7 +87,7 @@ void tilem_macro_add_action(TilemMacro* macro, int type, char * value) {
 	macro->actions = tilem_macro_actions_new(macro, n + 1);
 
 	/* Then we need to save the action */	
-	macro->actions[n] =  (TilemMacroAtom*) g_new(char, strlen(value)); 
+	macro->actions[n] =  g_new(TilemMacroAtom, 1); 
 	macro->actions[n]->value = g_strdup(value);
 	macro->actions[n]->type = type;
 	macro->n++;
@@ -132,7 +132,7 @@ void tilem_macro_write_file(TilemCalcEmulator *emu) {
 				printf("type : %d    value : %s\n", emu->macro->actions[i]->type, emu->macro->actions[i]->value);
 				/* Test if it's a key press or a file loading action */
 				if(emu->macro->actions[i]->type == 1) {
-					char * lengthchar = g_new0(char, 4);
+					char * lengthchar = g_new0(char, 5);
 					int length = strlen(emu->macro->actions[i]->value);
 					fwrite("file=", 1, 5, fp);
 					sprintf(lengthchar, "%04zd", strlen(emu->macro->actions[i]->value));
