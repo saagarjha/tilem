@@ -49,8 +49,8 @@
    but definitely is necessary with some.) */
 void tilem_calc_emulator_lock(TilemCalcEmulator *emu)
 {
-	g_atomic_int_inc(&emu->calc_lock_waiting);
 	g_mutex_lock(emu->calc_mutex);
+	g_atomic_int_inc(&emu->calc_lock_waiting);
 }
 
 /* Unlock emulator and (if no other threads are waiting to lock it)
